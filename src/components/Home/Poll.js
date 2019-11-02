@@ -1,50 +1,77 @@
 import React, { Component } from "react";
-import Result, { } from "./Result";
-import { Row, Col, Card, Form, Button } from "react-bootstrap";
+import PollResult, { } from "./PollResult";
+import { Row, Col, Card } from "react-bootstrap";
+import { withRouter, Redirect } from "react-router-dom";
 
+import { connect } from "react-redux";
+import PollForm from "./PollForm";
 
 class Poll extends Component {
-    render() {
-        return <Card>
-            <Card.Header>Ask by ...</Card.Header>
-            <Card.Body>
-                <Row>
-                    <Col>
-                      <Card.Img variant="top" src="https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg" />
-                    </Col>
-                    <Col>
-                        <Result isVoted={true}/>
-                        <Result />
-                    </Col>
-                    <Col>
-                    <Form>
-            
-            {['radio'].map(type => (
-              <div key={`default-${type}`} className="mb-3">
-                <Form.Check 
-                  type={type}
-                  id={`default-${type}`}
-                  label={`default ${type}`}
-                  name={'a'}
-                />
-          
-                <Form.Check
-                  type={type}
-                  label={`disabled ${type}`}
-                  id={`disabled-default-${type}`}
-                  name={'a'}
-                />
-              </div>
-            ))}
-            <Button variant="primary" type="submit">
-                Submit
-            </Button>
-          </Form>
-                    </Col>
-                </Row>
-            </Card.Body>
-        </Card>
-    }
+
+state = {
+  choose:''
 }
 
-export default Poll
+  submitForm = (e) => {
+    e.preventdefault()
+    console.log('e',e)
+    
+    console.log('anwserPoll')
+  }
+  handleChangeCheck = (e) => {
+   
+  }
+
+  render() {
+    const { question, askBy, isAnswered,authedUser } = this.props
+
+    if (!question)
+      return <Redirect to="/404" />
+
+    return <Card>
+      <Card.Header>Ask by {askBy.name}</Card.Header>
+      
+      <Card.Body>
+        <Row>
+          <Col>
+            <img variant="top" src={`/${askBy.avatarURL}`} alt={askBy.name} />
+          </Col>
+          {isAnswered ?
+          <Col>
+            <Card.Text>Results: </Card.Text>
+            <PollResult authedUser={authedUser} question= {question}  />
+          </Col>
+          : 
+          <Col>
+          <PollForm  authedUser={authedUser} question={question}/>
+    
+          
+        </Col>
+          }
+         
+        </Row>
+      </Card.Body>
+    </Card>
+  }
+}
+
+function mapStateToProps({ users, authedUser, questions }, props) {
+
+  const { id } = props.match.params
+  const question = questions[id]
+  const loginUser = users[authedUser]
+  const isAnswered = loginUser? loginUser.answers[question.id] === undefined? false : true : false
+
+  const askBy = question ? users[question.author] : null
+  
+  return {
+    pollId:id,
+    question,
+    askBy,
+    authedUser,
+    isAnswered
+
+  }
+
+}
+export default withRouter(connect(mapStateToProps)(Poll))

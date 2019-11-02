@@ -3,25 +3,27 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+// //react router
+// import { BrowserRouter } from 'react-router-dom'
+//redux
+import { createStore } from "redux";
+import middleware from './redux/middleware'
+import  reducers  from "./redux/reducers";
 import { Provider } from "react-redux";
 //bootstrap
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
-//react router
-import { BrowserRouter } from 'react-router-dom'
+const store = createStore(reducers,middleware)
 
+const routing = (
+  <Provider store={ store }>
+    <App />
+  </Provider>
 
-
-const routingt = (
-  <BrowserRouter>
-  
-      <App />
-
-  </BrowserRouter>
 )
 
 ReactDOM.render(
-  routingt
+  routing
   ,
   document.getElementById('root')
 );

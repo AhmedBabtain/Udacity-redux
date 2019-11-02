@@ -1,22 +1,29 @@
 import React, { Component } from "react";
-import { Card, Row, Col, ListGroup, Badge } from "react-bootstrap";
+import { connect } from "react-redux";
+
+import { Card, Row, Col, ListGroup, Badge, Alert } from "react-bootstrap";
 
 class BoardCard extends Component {
-    render() {
-        return <Card className={'m-3 text-center'} >
 
+    render() {
+        const { user, AnswerdQuestions, CreatedQuestions, Score } = this.props
+
+        if(!user)
+            return <Alert variant="danger">User does not exsist (id)</Alert>
+
+        return <Card className={'m-3 text-center'} >
             <Card.Body>
                 <Row>
                     <Col sm={3}>
-                        <Card.Img variant="bottom" src="https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg" />
+                        <Card.Img variant="bottom" src={user.avatarURL} />
                     </Col>
 
                     <Col>
                         <Card>
-                            <Card.Header>{'{Username}'}</Card.Header>
+                            <Card.Header>{user.name}</Card.Header>
                             <ListGroup variant="flush">
-                                <ListGroup.Item>Answerd Quetions: {'{0}'}</ListGroup.Item>
-                                <ListGroup.Item>Created Quetions: {'{0}'}</ListGroup.Item>
+                                <ListGroup.Item>Answerd Quetions: {AnswerdQuestions}</ListGroup.Item>
+                                <ListGroup.Item>Created Quetions: {CreatedQuestions}</ListGroup.Item>
                             </ListGroup>
                         </Card>
                     </Col>
@@ -26,7 +33,7 @@ class BoardCard extends Component {
                             <Card.Header>SCORE</Card.Header>
                             <Card.Body>
                                 <h1>
-                                <Badge lg  variant="success">0</Badge>
+                                <Badge variant="success">{Score}</Badge>
                                 </h1>
                             
                             </Card.Body>
@@ -37,5 +44,19 @@ class BoardCard extends Component {
         </Card>
     }
 }
+function mapStateToProps({ users }, {id}) {
+    const user = users[id]
+    const AnswerdQuestions = user ? Object.keys(user.answers).length : 0
 
-export default BoardCard
+    
+    const CreatedQuestions = user ? user.questions.length : 0
+    const Score = CreatedQuestions + AnswerdQuestions
+
+    return{
+        user,
+        AnswerdQuestions,
+        CreatedQuestions,
+        Score
+    }
+}
+export default connect(mapStateToProps)(BoardCard)
