@@ -25,19 +25,19 @@ class PollItem extends Component {
       <Card.Header>Ask by {question.author}</Card.Header>
       <Card.Body>
         <Row>
-          <Col sm={2}>
-            <img height={50} width={50} variant="top" src={ author.avatarURL }  alt={author.name} />
+          <Col sm={3}>
+            <Card.Img variant="top" src={ author.avatarURL }  alt={author.name} height={100}/>
           </Col>
-          <Col sm={7}>
+          <Col sm={6}>
             <h3>Would you rather..</h3>
             <p>{question.optionOne.text}</p>
           </Col>
           <Col sm={3}>
-            <Row>
+           
             <Button variant="success" onClick={(e) => this.toViewPoll(e, pollId)}>
               View Poll
             </Button>
-            </Row>
+            
           </Col>
         </Row>
       </Card.Body>

@@ -33,19 +33,17 @@ state = {
       
       <Card.Body>
         <Row>
-          <Col>
-            <img variant="top" src={`/${askBy.avatarURL}`} alt={askBy.name} />
+          <Col sm={2}>
+            <Card.Img variant="top" src={`/${askBy.avatarURL}`} height={135}/>
           </Col>
           {isAnswered ?
           <Col>
-            <Card.Text>Results: </Card.Text>
+            <Card.Header>Results </Card.Header>
             <PollResult authedUser={authedUser} question= {question}  />
           </Col>
           : 
           <Col>
           <PollForm  authedUser={authedUser} question={question}/>
-    
-          
         </Col>
           }
          

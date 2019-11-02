@@ -14,8 +14,8 @@ class BoardCard extends Component {
         return <Card className={'m-3 text-center'} >
             <Card.Body>
                 <Row>
-                    <Col sm={3}>
-                        <Card.Img variant="bottom" src={user.avatarURL} />
+                    <Col sm={2}>
+                        <Card.Img variant="bottom" src={user.avatarURL} height={150} width={150} />
                     </Col>
 
                     <Col>

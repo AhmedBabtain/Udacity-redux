@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Button, Card } from "react-bootstrap";
+import { Form, Button, Card, Row, Col } from "react-bootstrap";
 import { connect } from 'react-redux'
 import { setAuthedUser } from "../redux/actions/authedUser";
 import { withRouter } from "react-router-dom";
@@ -35,13 +35,17 @@ class LoginForm extends Component {
         return <Card>
             <Card.Header>Welcome to would you rather App
             </Card.Header>
-            {userInfo && 
+            <Row>
+                {userInfo && 
+                <Col>
                       <Card.Body>
-                          <img src={'./'+userInfo.avatarURL} alt={userInfo.name} variant="top"></img>
+                          <Card.Img src={'./'+userInfo.avatarURL} alt={userInfo.name} variant="top" />
                         
                       </Card.Body>
+                </Col>
                     }
-            <Card.Body>
+                <Col sm={8}>
+                <Card.Body>
                 <Card.Text>Please <strong>Sign in</strong> to be continue: </Card.Text>
                 <Form onSubmit={this.handleSginIn}>
                     <Form.Group controlId="formBasicEmail">
@@ -56,9 +60,13 @@ class LoginForm extends Component {
                     
                     <Button variant="primary" type="submit">
                         Sign in
-                </Button>
+                    </Button>
                 </Form>
             </Card.Body>
+                 </Col>
+            </Row>
+            
+           
         </Card>
 
     }

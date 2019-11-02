@@ -11,8 +11,6 @@ import LoginForm from './components/LoginForm';
 import Poll from './components/Home/Poll';
 
 import { receiveInitialDataHandle } from "./redux/actions/shared";
-// import { q } from "./redux/actions/questions";
-
 
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
