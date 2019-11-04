@@ -19,19 +19,16 @@ class Navigation extends Component {
         return (
 
             <Navbar bg="light" expand="lg" className={'m-3'}>
-                <Navbar.Brand><NavLink to="/Questions" className="nav-link">Would You Rather</NavLink></Navbar.Brand>
+                <Navbar.Brand>
+                    <NavLink to="/questions" className="nav-link">Would You Rather</NavLink>
+                </Navbar.Brand>
                 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                            <NavLink to="/Questions" className="nav-link">Home</NavLink>                
-                            <NavLink to="/add"  className="nav-link">New Questions</NavLink>
-
-                   
-                            <NavLink to="/leaderboard"  className="nav-link">
-                                Leader Board
-                            </NavLink>
-                 
+                            <NavLink to="/questions" className="nav-link">Home</NavLink>                
+                            <NavLink to="/add"  className="nav-link">New Questions</NavLink>                   
+                            <NavLink to="/leaderboard"  className="nav-link"> Leader Board </NavLink>
                     </Nav>
 
                     {loginUser

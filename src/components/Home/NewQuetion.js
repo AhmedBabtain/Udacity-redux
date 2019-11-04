@@ -31,7 +31,7 @@ class NewQuetion extends Component {
         const { optionOneText, optionTwoText } = this.state
         
         dispatch(handleAddQuestion(optionOneText, optionTwoText))
-        history.push(`/`)
+        history.push(`/questions`)
     }
     render() {
         const { optionOneText, optionTwoText } = this.state

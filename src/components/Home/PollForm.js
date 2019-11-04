@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form, Button, ListGroup,Card } from "react-bootstrap";
 import { handleAnswerQuestion } from "../../redux/actions/questions";
 import { connect } from "react-redux";
+// import { with } from "react-dom";
 
 class PollForm extends Component {
 
@@ -14,12 +15,11 @@ class PollForm extends Component {
     if (this.state.selecedAnswer === '') {
       alert('please seleced choose')
     } else {
-
       this.props
         .dispatch(handleAnswerQuestion(this.props.question.id, this.state.selecedAnswer))
-    }
 
-    //todo dispatch and redirect to...
+    }
+ 
   }
 
   changeSelecedAnswer = (choose) => {
