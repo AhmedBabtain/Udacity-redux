@@ -28,7 +28,7 @@ class Navigation extends Component {
                             <NavLink to="/add"  className="nav-link">New Questions</NavLink>
 
                    
-                            <NavLink to="/LeaderBoard"  className="nav-link">
+                            <NavLink to="/leaderboard"  className="nav-link">
                                 Leader Board
                             </NavLink>
                  

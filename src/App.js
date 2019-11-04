@@ -38,7 +38,7 @@ class App extends React.Component {
                 <PrivateRoute exact path="/Questions" component={Questions} />
                 <PrivateRoute exact path="/Questions/:id" component={Poll} />
                 <PrivateRoute exact path="/add" component={NewQuetion} />
-                <PrivateRoute exact path="/LeaderBoard" component={LeaderBoard} />
+                <PrivateRoute exact path="/leaderboard" component={LeaderBoard} />
                 <Route path="/Login" component={LoginForm} />
                 <PrivateRoute exact path="/404" component={PageNotFound} />
                 <PrivateRoute component={PageNotFound} />
