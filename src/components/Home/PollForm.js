@@ -23,8 +23,6 @@ class PollForm extends Component {
   }
 
   changeSelecedAnswer = (choose) => {
-    console.log(choose);
-
     this.setState({ selecedAnswer: choose })
   }
   render() {

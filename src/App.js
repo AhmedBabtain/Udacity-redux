@@ -16,15 +16,24 @@ import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import { PrivateRoute }  from "./helper/PrivateRoute";
 import PageNotFound from './components/PageNotFound';
+import { receiveAuthedUser, unsetAuthedUser, setAuthedUser } from './redux/actions/authedUser';
 
 class App extends React.Component {
 
   componentDidMount() {
-    this.props.dispatch(receiveInitialDataHandle())
+    // const current = localStorage.getItem('authedUser')
+    // if (current) {
+    //   this.props.dispatch(setAuthedUser(current))
+    // }else{
+    //   localStorage.removeItem('authedUser')
+    // }
+    
     localStorage.removeItem('authedUser')
+    this.props.dispatch(receiveInitialDataHandle())
+    
   }
-
   render() {
+    const {isAuthedUserLogIn} =this.props
   
     return (
       <Router>
@@ -34,14 +43,15 @@ class App extends React.Component {
           <Row>
             <Col sm={12}>
               <Switch>
-                <PrivateRoute exact path="/" component={Questions} />
-                <PrivateRoute exact path="/Questions" component={Questions} />
-                <PrivateRoute exact path="/Questions/:id" component={Poll} />
-                <PrivateRoute exact path="/add" component={NewQuetion} />
-                <PrivateRoute exact path="/leaderboard" component={LeaderBoard} />
+           
+                <PrivateRoute exact path="/" component={Questions} isAuthedUserLogIn={isAuthedUserLogIn} />
+                <PrivateRoute exact path="/Questions" component={Questions} isAuthedUserLogIn={isAuthedUserLogIn} />
+                <PrivateRoute exact path="/Questions/:id" component={Poll} isAuthedUserLogIn={isAuthedUserLogIn} />
+                <PrivateRoute exact path="/add" component={NewQuetion} isAuthedUserLogIn={isAuthedUserLogIn} />
+                <PrivateRoute exact path="/leaderboard" component={LeaderBoard} isAuthedUserLogIn={isAuthedUserLogIn} />
                 <Route path="/Login" component={LoginForm} />
-                <PrivateRoute exact path="/404" component={PageNotFound} />
-                <PrivateRoute component={PageNotFound} />
+                <Route exact path="/404" component={PageNotFound} isAuthedUserLogIn={isAuthedUserLogIn} />
+                <Route component={PageNotFound} />
               </Switch>
               
             </Col>
@@ -53,4 +63,11 @@ class App extends React.Component {
   }
 }
 
-export default connect()(App);
+function mapStateToProps ({authedUser}) {
+    
+  return {
+    isAuthedUserLogIn: authedUser !== null
+  }
+}
+
+export default connect(mapStateToProps)(App);

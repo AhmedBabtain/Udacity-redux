@@ -11,7 +11,7 @@ export function receiveAuthedUser(authedUser) {
 }
 
 
-export function setAuthedUser (authedUser) {
+export function setAuthedUser (authedUser) {  
     return {
       type: SET_AUTHED_USER,
       authedUser,

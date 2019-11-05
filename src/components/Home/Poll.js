@@ -12,16 +12,6 @@ state = {
   choose:''
 }
 
-  submitForm = (e) => {
-    e.preventdefault()
-    console.log('e',e)
-    
-    console.log('anwserPoll')
-  }
-  handleChangeCheck = (e) => {
-   
-  }
-
   render() {
     const { question, askBy, isAnswered,authedUser } = this.props
 
@@ -57,19 +47,30 @@ function mapStateToProps({ users, authedUser, questions }, props) {
 
   const { id } = props.match.params
   const question = questions[id]
-  const loginUser = users[authedUser]
-  const isAnswered = loginUser? loginUser.answers[question.id] === undefined? false : true : false
-
-  const askBy = question ? users[question.author] : null
   
-  return {
-    pollId:id,
-    question,
-    askBy,
-    authedUser,
-    isAnswered
+  if (question) {
+    const loginUser = users[authedUser]
+    const isAnswered = loginUser? loginUser.answers[question.id] === undefined? false : true : false
+    const askBy = question ? users[question.author] : null
 
+    return {
+      pollId:id,
+      question,
+      askBy,
+      authedUser,
+      isAnswered
+    }
+    
+  } else {
+    return {
+      pollId:id,
+      question,
+    }
   }
+ 
+  
+  
+  
 
 }
 export default withRouter(connect(mapStateToProps)(Poll))

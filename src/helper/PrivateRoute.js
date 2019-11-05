@@ -8,11 +8,14 @@ export const PrivateRoute = ({component:Component, ...rest}) => {
     return (
     <Route 
         {...rest}
-        render = {props => {
-            console.log('props',props)
-            return  localStorage.getItem("authedUser") 
+        render = {(props) => {
+
+            return  rest.isAuthedUserLogIn
             ? (<Component {...props} /> )
-            : (<Redirect to="/login" />)
+            : (<Redirect to={{
+                pathname: "/login",
+                state: { from: props.location }
+              }} />)
             
         }
           
@@ -20,9 +23,6 @@ export const PrivateRoute = ({component:Component, ...rest}) => {
     />
 )}
 
-function mapStateToProps({ auhedUser }){
-    return {
-        auhedUser
-    }
-}
- export default connect(mapStateToProps)(PrivateRoute)
+              
+
+ export default connect()(PrivateRoute)

@@ -13,7 +13,7 @@ class PollResult extends Component {
         const optionOneVotesPresentage = optionOneVotes / totalVotes * 100
         const optionTwoVotesPresentage = 100 - optionOneVotesPresentage
         const votedAnswer = optionOne.votes.includes(authedUser) ? 'optionOne' : 'optionTwo'
-        console.log('question',question)
+    
         return <Fragment>
             <Card border={ votedAnswer === 'optionOne' ? "success": null} className='mb-2'>
                     <Card.Body>

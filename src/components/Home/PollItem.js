@@ -9,9 +9,8 @@ class PollItem extends Component {
 
   toViewPoll = (e, pollId) => {
     e.preventDefault();
-    console.log('todo: redirect to viewPoll components',pollId)
     const { history } = this.props
-    history.push(`/Questions/${pollId}`)
+    history.push(`/questions/${pollId}`)
   }
 
   render() {

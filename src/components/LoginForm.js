@@ -17,19 +17,23 @@ class LoginForm extends Component {
     handleSginIn = (e) => {
         e.preventDefault()
         const selecedUser = this.state.selecedUser
+        console.log('loginProps', this.props)
+        const { history, location, dispatch } = this.props
+        const homePageUrl = { from: { pathname: "/" }}
+        const { from } =  location.state || homePageUrl
 
         if (selecedUser === '') {
             alert("Please select user")
         } else {
-            this.props.dispatch(setAuthedUser(selecedUser))
+            dispatch(setAuthedUser(selecedUser))
             localStorage.setItem('authedUser',selecedUser)
-            this.props.history.push('./')
+            history.replace(from)
         }
     }
     render() {
+        
         const { usersList } = this.props
         const userInfo = usersList.find((user) => user.id === this.state.selecedUser)
-        console.log('userInfo',userInfo);
         
        
         return <Card>
